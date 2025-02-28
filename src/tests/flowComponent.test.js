@@ -3,7 +3,7 @@ const { test, expect } = require('@playwright/test');
 
 test.describe('React Flow Drag and Drop', () => {
   test('should add a new node and connect it', async ({ page }) => {
-    // Navigate to the app
+    // Navigate to the localhost app
     await page.goto('http://localhost:3000');
 
     // Find the "Add Node" button in the sidebar and drag it onto the canvas
