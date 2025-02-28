@@ -8,7 +8,8 @@ function App() {
     <div className="App">
       <div className="drag-container">
         <div
-          className="draggable"
+          className="draggable partner-node"
+          data-type="partner"
           draggable
           onDragStart={(event) => {
             event.dataTransfer.setData('application/reactflow', 'partner');
@@ -17,7 +18,8 @@ function App() {
           Partner Node
         </div>
         <div
-          className="draggable"
+          className="draggable sponsor-node"
+          data-type="sponsor"
           draggable
           onDragStart={(event) => {
             event.dataTransfer.setData('application/reactflow', 'sponsor');
