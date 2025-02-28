@@ -1,23 +1,32 @@
-import logo from './logo.svg';
+// src/App.js
+import React from 'react';
+import FlowComponent from './FlowComponent';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <div className="drag-container">
+        <div
+          className="draggable"
+          draggable
+          onDragStart={(event) => {
+            event.dataTransfer.setData('application/reactflow', 'partner');
+          }}
         >
-          Learn React
-        </a>
-      </header>
+          Partner Node
+        </div>
+        <div
+          className="draggable"
+          draggable
+          onDragStart={(event) => {
+            event.dataTransfer.setData('application/reactflow', 'sponsor');
+          }}
+        >
+          Sponsor Node
+        </div>
+      </div>
+      <FlowComponent />
     </div>
   );
 }
