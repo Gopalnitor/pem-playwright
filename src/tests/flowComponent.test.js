@@ -1,3 +1,4 @@
+//flowComponent.test.js
 const { test, expect } = require('@playwright/test');
 const FlowPage = require('../pages/FlowPage'); // Import the Page Object
 
@@ -52,4 +53,24 @@ test.describe('Connect nodes with edge', () => {
   });
 });
 
+test.describe('Delete Node', () => {
+  let flowPage;
+
+  test.beforeEach(async ({ page }) => {
+    flowPage = new FlowPage(page);
+    await flowPage.navigate();
+  });
+
+  test('should delete a node when the "Delete Node" option is clicked in the context menu', async ({ page }) => {
+    await flowPage.dragAndDropNode(flowPage.sidebarPartnerNode, 'partner');
+
+    const node = await page.locator('.react-flow__node');
+    await expect(node).toBeVisible();
+
+    await flowPage.deleteNode();
+
+    const nodesAfterDelete = await page.locator('.react-flow__node');
+    await expect(nodesAfterDelete).toHaveCount(0);
+  });
+});
  

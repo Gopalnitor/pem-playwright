@@ -1,3 +1,4 @@
+
 .drag-container {
   padding: 10px;
   background: lightgray;
@@ -8,7 +9,8 @@
 
 .draggable {
   padding: 10px;
-  background: #4caf50; /* Default Node color */
+  background: #4caf50;
+  /* Default Node color */
   color: white;
   border-radius: 5px;
   cursor: grab;
@@ -16,5 +18,33 @@
 
 /* Additional style for the special node */
 .draggable[data-type="special"] {
-  background: #2196f3; /* Special Node color */
+  background: #2196f3;
+  /* Special Node color */
 }
+
+
+/* Context menu styles */
+.context-menu {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.context-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 5px 0;
+}
+
+.context-menu li {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.context-menu li:hover {
+  background-color: #f0f0f0;
+}
+ 

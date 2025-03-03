@@ -1,3 +1,4 @@
+//FlowPage.js
 class FlowPage {
   constructor(page) {
     this.page = page;
@@ -29,7 +30,7 @@ class FlowPage {
     await this.page.goto('http://localhost:3000');
   }
 
-  async dragAndDropNode(nodeLocator, nodeType, dropXNode, dropYNode) {
+  async dragAndDropNode(nodeLocator, nodeType, dropXNode = 0, dropYNode = 0) {
     // Wait for selectors
     await this.page.waitForSelector('.react-flow');
 
@@ -71,6 +72,23 @@ class FlowPage {
     // Take snapshot after connection
     await this.page.screenshot({ path: 'screenshots/edges-connect.png' });
   }
+
+  // New method to delete a node
+  async deleteNode() {
+    const node = await this.page.locator('.react-flow__node');
+    
+    // Right-click on the node to open the context menu
+    await node.hover();
+    await node.click({ button: 'right' });
+
+    // Click "Delete Node" from the context menu
+    const deleteOption = this.page.locator('.context-menu li', { hasText: 'Delete Node' });
+    await deleteOption.click();
+
+    // Wait for the node to be deleted
+    await this.page.waitForTimeout(500); // Optional, can be adjusted
+  }
+
 }
 
 module.exports = FlowPage;
