@@ -1,23 +1,15 @@
-//FlowComponent.js
 import React, { useCallback, useState, useRef, useEffect } from 'react';
-import ReactFlow, {
-  Controls,
-  MiniMap,
-  addEdge,
-  applyNodeChanges,
-  applyEdgeChanges,
-  ReactFlowProvider,
-} from 'reactflow';
+import ReactFlow, { Controls, MiniMap, addEdge, applyNodeChanges, applyEdgeChanges, ReactFlowProvider } from 'reactflow';
 import 'reactflow/dist/style.css';
 import './FlowComponent.css';
-import { v4 as uuidv4 } from 'uuid'; // Importing uuid for unique IDs
+import { v4 as uuidv4 } from 'uuid';
 
 const initialEdges = [];
 
 const FlowComponent = () => {
   const [nodes, setNodes] = useState([]);
   const [edges, setEdges] = useState(initialEdges);
-  const [contextMenu, setContextMenu] = useState(null); 
+  const [contextMenu, setContextMenu] = useState(null);
   const reactFlowWrapper = useRef(null);
   const resizeObserverRef = useRef(null);
 
@@ -62,9 +54,8 @@ const FlowComponent = () => {
     event.dataTransfer.dropEffect = 'move';
   };
 
- 
   const handleNodeContextMenu = (event, nodeId) => {
-    event.preventDefault(); 
+    event.preventDefault();
     const { clientX, clientY } = event;
     setContextMenu({
       visible: true,
@@ -74,10 +65,10 @@ const FlowComponent = () => {
     });
   };
 
-   const handleDeleteNode = () => {
+  const handleDeleteNode = () => {
     if (contextMenu) {
       setNodes((nds) => nds.filter((node) => node.id !== contextMenu.nodeId.id));
-      setContextMenu(null); 
+      setContextMenu(null);
     }
   };
 
@@ -112,36 +103,57 @@ const FlowComponent = () => {
   }, []);
 
   return (
-    <div style={{ height: '100vh' }} ref={reactFlowWrapper}>
-      <ReactFlowProvider>
-        <ReactFlow
-          nodes={nodes}
-          edges={edges}
-          onConnect={onConnect}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onDrop={onDrop}
-          onDragOver={onDragOver}
-          onNodeContextMenu={handleNodeContextMenu} 
-        >
-          <Controls />
-          <MiniMap />
-        </ReactFlow>
-      </ReactFlowProvider>
-
-      {/* Context Menu */}
-      {contextMenu && (
+    <>
+      <div className="drag-container">
         <div
-          className="context-menu"
-          style={{ top: contextMenu.y, left: contextMenu.x }}
+          className="draggable partner-node"
+          data-type="partner"
+          draggable
+          onDragStart={(event) => {
+            event.dataTransfer.setData('application/reactflow', 'partner');
+          }}
         >
-          <ul>
-            <li onClick={handleDeleteNode}>Delete Node</li>
-          </ul>
+          Partner Node
         </div>
-      )}
-    </div>
+        <div
+          className="draggable sponsor-node"
+          data-type="sponsor"
+          draggable
+          onDragStart={(event) => {
+            event.dataTransfer.setData('application/reactflow', 'sponsor');
+          }}
+        >
+          Sponsor Node
+        </div>
+      </div>
+      <div style={{ height: '100vh' }} ref={reactFlowWrapper}>
+        <ReactFlowProvider>
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            onConnect={onConnect}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onDrop={onDrop}
+            onDragOver={onDragOver}
+            onNodeContextMenu={handleNodeContextMenu}
+          >
+            <Controls />
+            <MiniMap />
+          </ReactFlow>
+        </ReactFlowProvider>
+
+        {contextMenu && (
+          <div className="context-menu" style={{ top: contextMenu.y, left: contextMenu.x }}>
+            <ul>
+              <li onClick={handleDeleteNode}>Delete Node</li>
+            </ul>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 
 export default FlowComponent;
+ 

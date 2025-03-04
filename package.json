@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@carbon/icons-react": "^11.56.0",
+    "@carbon/react": "^1.77.0",
+    "@carbon/styles": "^1.76.0",
+    "@cucumber/cucumber": "^11.2.0",
     "@playwright/test": "^1.50.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
@@ -11,6 +15,7 @@
     "playwright": "^1.50.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-router-dom": "^6.30.0",
     "react-scripts": "5.0.1",
     "reactflow": "^11.11.4",
     "web-vitals": "^2.1.4"

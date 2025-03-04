@@ -1,15 +1,15 @@
+
 class FlowPage {
   constructor(page) {
     this.page = page;
   }
 
-  // Locators
   get sidebarPartnerNode() {
-    return this.page.locator('text=Partner Node');
+    return this.page.locator('.drag-container .draggable.partner-node');  // Selects the Partner Node by its class
   }
 
   get sidebarSponsorNode() {
-    return this.page.locator('text=Sponsor Node');
+    return this.page.locator('.drag-container .draggable.sponsor-node');  // Selects the Sponsor Node by its class
   }
 
   get canvas() {
@@ -28,17 +28,16 @@ class FlowPage {
     return this.page.locator('.react-flow__viewport');
   }
 
-  // Actions
-  async navigate() {
+  async navigateList() {
     await this.page.goto('http://localhost:3000');
   }
 
-  // Drag and Drop Node Method
-  async dragAndDropNode(nodeLocator, nodeType, dropXNode = 0, dropYNode = 0) {
-    // Wait for selectors
-    await this.page.waitForSelector('.react-flow');
+  async navigateFlow() {
+    await this.page.goto('http://localhost:3000/flow');
+  }
 
-    // Take snapshot before drag
+  async dragAndDropNode(nodeLocator, nodeType, dropXNode = 0, dropYNode = 0) {
+    await this.page.waitForSelector('.react-flow');
     await this.page.screenshot({ path: `screenshots/before-${nodeType}-drag.png` });
 
     const nodeBoundingBox = await nodeLocator.boundingBox();
@@ -57,28 +56,23 @@ class FlowPage {
       await this.page.mouse.up();
     }
 
-    // Take snapshot after drag
     await this.page.screenshot({ path: `screenshots/after-${nodeType}-drag.png` });
   }
 
-  // Connect Nodes Method
   async connectNodes() {
     const edgeSourceBox = await this.edgeSource.boundingBox();
     const edgeTargetBox = await this.edgeTarget.boundingBox();
 
     if (!edgeSourceBox || !edgeTargetBox) throw new Error('Edge source or target not found');
 
-    // Simulate mouse down at the source handle
-    await this.page.mouse.move(edgeSourceBox.x + edgeSourceBox.width / 2, edgeSourceBox.y + edgeSourceBox.height / 2); // Move to the center of the source handle
+    await this.page.mouse.move(edgeSourceBox.x + edgeSourceBox.width / 2, edgeSourceBox.y + edgeSourceBox.height / 2);
     await this.page.mouse.down();
-    await this.page.mouse.move(edgeTargetBox.x + edgeTargetBox.width / 2, edgeTargetBox.y + edgeTargetBox.height / 2); // Move to the center of the target handle
+    await this.page.mouse.move(edgeTargetBox.x + edgeTargetBox.width / 2, edgeTargetBox.y + edgeTargetBox.height / 2);
     await this.page.mouse.up();
 
-    // Take snapshot after connection
     await this.page.screenshot({ path: 'screenshots/edges-connect.png' });
   }
 
-  // Delete Node Method
   async deleteNode(nodeIndex = 0) {
     const node = await this.page.locator('.react-flow__node').nth(nodeIndex);
 

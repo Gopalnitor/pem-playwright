@@ -1,36 +1,18 @@
-// src/App.js
 import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import FlowComponent from './FlowComponent';
-import './App.css';
+import DataTablePage from './DataTable';
 
 function App() {
   return (
-    <div className="App">
-      <div className="drag-container">
-        <div
-          className="draggable partner-node"
-          data-type="partner"
-          draggable
-          onDragStart={(event) => {
-            event.dataTransfer.setData('application/reactflow', 'partner');
-          }}
-        >
-          Partner Node
-        </div>
-        <div
-          className="draggable sponsor-node"
-          data-type="sponsor"
-          draggable
-          onDragStart={(event) => {
-            event.dataTransfer.setData('application/reactflow', 'sponsor');
-          }}
-        >
-          Sponsor Node
-        </div>
-      </div>
-      <FlowComponent />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<DataTablePage />} />
+        <Route path="/flow" element={<FlowComponent />} />
+      </Routes>
+    </Router>
   );
 }
 
 export default App;
+ 

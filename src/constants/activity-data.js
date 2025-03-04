@@ -1,0 +1,17 @@
+export const data = [
+    { id: 1, name: 'Partner A', type: 'Partner' },
+    { id: 2, name: 'Sponsor B', type: 'Sponsor' },
+    { id: 3, name: 'Partner C', type: 'Partner' },
+    { id: 4, name: 'Partner D', type: 'Partner' },
+    { id: 5, name: 'Sponsor E', type: 'Sponsor' },
+    { id: 6, name: 'Partner F', type: 'Partner' },
+    { id: 7, name: 'Sponsor G', type: 'Sponsor' },
+    { id: 8, name: 'Partner H', type: 'Partner' },
+    { id: 9, name: 'Sponsor I', type: 'Sponsor' },
+    { id: 10, name: 'Partner J', type: 'Partner' },
+    { id: 11, name: 'Sponsor K', type: 'Sponsor' },
+    { id: 12, name: 'Partner L', type: 'Partner' },
+    { id: 13, name: 'Sponsor M', type: 'Sponsor' },
+    { id: 14, name: 'Partner N', type: 'Partner' },
+    { id: 15, name: 'Sponsor O', type: 'Sponsor' },
+  ];  
