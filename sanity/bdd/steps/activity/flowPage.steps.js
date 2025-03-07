@@ -1,6 +1,6 @@
 const { Given, When, Then } = require('@cucumber/cucumber');
 const { expect } = require('@playwright/test');
-const FlowPage = require('../../../src/pages/FlowPage');
+const FlowPage = require('../../page-objects/FlowPage.po');
 
 let flowPage;
 
@@ -10,11 +10,8 @@ async function setupFlowPage(page) {
   return flowPage;
 }
 
-// Given('I am on the List Page', { timeout: 100 * 1000 }, async function () {
-//   await this.page.goto('http://localhost:3000');
-// });
-
 When('I click the "New" button', { timeout: 100 * 1000 }, async function () {
+  await this.page.waitForTimeout(2000); 
   await this.page.click('button:has-text("New")');
 });
 
@@ -38,8 +35,8 @@ Then('I should see the canvas', async function () {
   await expect(flowPage.canvas).toBeVisible();
 });
 
-When('I drag and drop the Partner Node on the canvas', {timeout: 100*1000}, async function () {
-  await flowPage.dragAndDropNode(flowPage.sidebarPartnerNode, 'partner', 50, 20);
+When('I drag and drop the Partner Node on the canvas', { timeout: 100 * 1000 }, async function () {
+  await flowPage.dragAndDropNode(flowPage.sidebarPartnerNode, 'partner', -300, -300);
 });
 
 Then('the Partner Node should be visible on the canvas', async function () {
@@ -47,10 +44,10 @@ Then('the Partner Node should be visible on the canvas', async function () {
 });
 
 When('I drag and drop the Sponsor Node on the canvas', async function () {
-  await flowPage.dragAndDropNode(flowPage.sidebarSponsorNode, 'sponsor', 300, 100);
+  await flowPage.dragAndDropNode(flowPage.sidebarSponsorNode, 'sponsor', -200, -100);
 });
 
-Then('the Sponsor Node should be visible on the canvas', {timeout: 100*1000}, async function () {
+Then('the Sponsor Node should be visible on the canvas', { timeout: 100 * 1000 }, async function () {
   await expect(flowPage.canvas.locator('.react-flow__node')).toBeVisible();
 });
 
@@ -71,15 +68,15 @@ Then('the Partner Node should be removed from the canvas', async function () {
 });
 
 When('I delete the Partner Node from the connected nodes', async function () {
-  await flowPage.deleteNode(0);  // Delete the first node (Partner Node)
+  await flowPage.deleteNode(0); 
 });
 
 Then('the edge should be removed', async function () {
   await expect(flowPage.canvas.locator('.react-flow__edge')).toHaveCount(0);
 });
 
-When('I zoom in using the zoom-in shortcut', async function () {
-  await this.page.keyboard.press('Control+Equal');
+When('I zoom in using the zoom-in', async function () {
+  await this.page.click('button[aria-label="zoom in"]');
 });
 
 Then('the viewport should be zoomed in', async function () {
@@ -87,11 +84,12 @@ Then('the viewport should be zoomed in', async function () {
   expect(await zoomedInContainer.evaluate((node) => node.style.transform)).toContain('scale');
 });
 
-When('I zoom out using the zoom-out shortcut', async function () {
-  await this.page.keyboard.press('Control+Minus');
+When('I zoom out using the zoom-out', async function () {
+  await this.page.click('button[aria-label="zoom out"]');
 });
 
 Then('the viewport should be zoomed out', async function () {
   const zoomedOutContainer = flowPage.viewport;
   expect(await zoomedOutContainer.evaluate((node) => node.style.transform)).toContain('scale');
 });
+ 

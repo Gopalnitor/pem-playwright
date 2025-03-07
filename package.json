@@ -15,6 +15,7 @@
     "playwright": "^1.50.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-resizable-panels": "^2.1.7",
     "react-router-dom": "^6.30.0",
     "react-scripts": "5.0.1",
     "reactflow": "^11.11.4",
@@ -23,7 +24,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test:cucumber": "npx cucumber-js --config ./sanity/cucumber.json --require ./sanity/bdd/steps/**/*.steps.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

@@ -1,12 +1,21 @@
-import React, { useCallback, useState, useRef, useEffect } from 'react';
-import ReactFlow, { Controls, MiniMap, addEdge, applyNodeChanges, applyEdgeChanges, ReactFlowProvider } from 'reactflow';
-import 'reactflow/dist/style.css';
-import './FlowComponent.css';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useCallback, useState, useRef, useEffect } from "react";
+import ReactFlow, {
+  Controls,
+  addEdge,
+  applyNodeChanges,
+  applyEdgeChanges,
+  ReactFlowProvider,
+} from "reactflow";
+import "reactflow/dist/style.css";
+import "./WorkFlow.css";
+import { v4 as uuidv4 } from "uuid";
+import TaskTray from "./TaskTray"; 
+import Header from "../Header/Header";
+
 
 const initialEdges = [];
 
-const FlowComponent = () => {
+const WorkFlow = () => { 
   const [nodes, setNodes] = useState([]);
   const [edges, setEdges] = useState(initialEdges);
   const [contextMenu, setContextMenu] = useState(null);
@@ -28,9 +37,9 @@ const FlowComponent = () => {
   const onDrop = useCallback((event) => {
     event.preventDefault();
     const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
-    const type = event.dataTransfer.getData('application/reactflow');
+    const type = event.dataTransfer.getData("application/reactflow");
 
-    if (typeof type === 'undefined' || !reactFlowBounds) {
+    if (typeof type === "undefined" || !reactFlowBounds) {
       return;
     }
 
@@ -41,9 +50,9 @@ const FlowComponent = () => {
 
     const newNode = {
       id: uuidv4(),
-      type: type === 'partner' ? 'partner' : 'sponsor',
+      type: type === "partner" ? "partner" : "sponsor",
       position,
-      data: { label: `${type === 'partner' ? 'Partner' : 'Sponsor'} Node` },
+      data: { label: `${type === "partner" ? "Partner" : "Sponsor"} Node` },
     };
 
     setNodes((nds) => nds.concat(newNode));
@@ -51,7 +60,7 @@ const FlowComponent = () => {
 
   const onDragOver = (event) => {
     event.preventDefault();
-    event.dataTransfer.dropEffect = 'move';
+    event.dataTransfer.dropEffect = "move";
   };
 
   const handleNodeContextMenu = (event, nodeId) => {
@@ -67,29 +76,29 @@ const FlowComponent = () => {
 
   const handleDeleteNode = () => {
     if (contextMenu) {
-      setNodes((nds) => nds.filter((node) => node.id !== contextMenu.nodeId.id));
+      setNodes((nds) =>
+        nds.filter((node) => node.id !== contextMenu.nodeId.id)
+      );
       setContextMenu(null);
     }
   };
 
   const handleClickOutside = (event) => {
-    if (contextMenu && !event.target.closest('.context-menu')) {
+    if (contextMenu && !event.target.closest(".context-menu")) {
       setContextMenu(null);
     }
   };
 
   useEffect(() => {
-    document.addEventListener('click', handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
     return () => {
-      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
   }, [contextMenu]);
 
-  // Prevent infinite ResizeObserver loop by using ResizeObserver efficiently
   useEffect(() => {
     if (reactFlowWrapper.current && !resizeObserverRef.current) {
       resizeObserverRef.current = new ResizeObserver(() => {
-        // Resize logic or optimization to avoid infinite loops can be added here
       });
 
       resizeObserverRef.current.observe(reactFlowWrapper.current);
@@ -104,29 +113,13 @@ const FlowComponent = () => {
 
   return (
     <>
-      <div className="drag-container">
-        <div
-          className="draggable partner-node"
-          data-type="partner"
-          draggable
-          onDragStart={(event) => {
-            event.dataTransfer.setData('application/reactflow', 'partner');
-          }}
-        >
-          Partner Node
-        </div>
-        <div
-          className="draggable sponsor-node"
-          data-type="sponsor"
-          draggable
-          onDragStart={(event) => {
-            event.dataTransfer.setData('application/reactflow', 'sponsor');
-          }}
-        >
-          Sponsor Node
-        </div>
-      </div>
-      <div style={{ height: '100vh' }} ref={reactFlowWrapper}>
+      <Header headerTitle={'New Activity'} title={'Task'} backNavigation/>
+      <TaskTray />
+
+      <div
+        style={{ height: "100vh", marginLeft: "73px" }}
+        ref={reactFlowWrapper}
+      >
         <ReactFlowProvider>
           <ReactFlow
             nodes={nodes}
@@ -139,12 +132,14 @@ const FlowComponent = () => {
             onNodeContextMenu={handleNodeContextMenu}
           >
             <Controls />
-            <MiniMap />
           </ReactFlow>
         </ReactFlowProvider>
 
         {contextMenu && (
-          <div className="context-menu" style={{ top: contextMenu.y, left: contextMenu.x }}>
+          <div
+            className="context-menu"
+            style={{ top: contextMenu.y, left: contextMenu.x }}
+          >
             <ul>
               <li onClick={handleDeleteNode}>Delete Node</li>
             </ul>
@@ -155,5 +150,4 @@ const FlowComponent = () => {
   );
 };
 
-export default FlowComponent;
- 
+export default WorkFlow;

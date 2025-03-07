@@ -1,3 +1,4 @@
+//flowPage.js
 
 class FlowPage {
   constructor(page) {
@@ -38,11 +39,12 @@ class FlowPage {
 
   async dragAndDropNode(nodeLocator, nodeType, dropXNode = 0, dropYNode = 0) {
     await this.page.waitForSelector('.react-flow');
-    await this.page.screenshot({ path: `screenshots/before-${nodeType}-drag.png` });
+    await this.page.screenshot({ path: `sanity/screenshots/before-${nodeType}-drag.png` });
 
     const nodeBoundingBox = await nodeLocator.boundingBox();
     const reactFlowWrapper = this.canvas;
     const targetBoundingBox = await reactFlowWrapper.boundingBox();
+    await this.page.waitForTimeout(500);
 
     if (nodeBoundingBox && targetBoundingBox) {
       const dragX = nodeBoundingBox.x + nodeBoundingBox.width / 2;
@@ -52,11 +54,12 @@ class FlowPage {
 
       await this.page.mouse.move(dragX, dragY);
       await this.page.mouse.down();
+      await this.page.waitForTimeout(500);
       await this.page.mouse.move(dropX, dropY);
       await this.page.mouse.up();
     }
 
-    await this.page.screenshot({ path: `screenshots/after-${nodeType}-drag.png` });
+    await this.page.screenshot({ path: `sanity/screenshots/after-${nodeType}-drag.png` });
   }
 
   async connectNodes() {
@@ -64,13 +67,14 @@ class FlowPage {
     const edgeTargetBox = await this.edgeTarget.boundingBox();
 
     if (!edgeSourceBox || !edgeTargetBox) throw new Error('Edge source or target not found');
-
+    await this.page.waitForTimeout(500);
     await this.page.mouse.move(edgeSourceBox.x + edgeSourceBox.width / 2, edgeSourceBox.y + edgeSourceBox.height / 2);
     await this.page.mouse.down();
+    await this.page.waitForTimeout(500);
     await this.page.mouse.move(edgeTargetBox.x + edgeTargetBox.width / 2, edgeTargetBox.y + edgeTargetBox.height / 2);
     await this.page.mouse.up();
 
-    await this.page.screenshot({ path: 'screenshots/edges-connect.png' });
+    await this.page.screenshot({ path: 'sanity/screenshots/edges-connect.png' });
   }
 
   async deleteNode(nodeIndex = 0) {
@@ -78,8 +82,9 @@ class FlowPage {
 
     await node.hover();
     await node.click({ button: 'right' });
-
+    await this.page.waitForTimeout(500);
     const deleteOption = this.page.locator('.context-menu li', { hasText: 'Delete Node' });
+    await this.page.waitForTimeout(500);
     await deleteOption.click();
 
     await this.page.waitForTimeout(500);

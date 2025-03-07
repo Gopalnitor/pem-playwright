@@ -1,0 +1,12 @@
+{
+  "default": {
+    "paths": [
+      "./sanity/bdd/features/**/*.feature"  
+    ],
+    "require": [
+      "./sanity/bdd/steps/**/*.steps.js",
+      "./sanity/bdd/support/hooks.js"
+    ],
+    "format": ["progress-bar", ["html", "sanity/reports/cucumber-report.html"], ["json", "sanity/reports/cucumber-report.json"]]
+  }
+}

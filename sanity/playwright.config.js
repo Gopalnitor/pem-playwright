@@ -1,8 +1,7 @@
-// playwright.config.js
 module.exports = {
   webServer: {
-    command: "npm run start", // start the React app
-    port: 3000, // the port where the app is running (default is 3000)
+    command: "npm run start", 
+    port: 3000,
   },
 
   timeout: 30 * 1000,
@@ -17,4 +16,6 @@ module.exports = {
     video: "on",
     trace: "on",
   },
+
+  testDir: './sanity/bdd/features'
 };

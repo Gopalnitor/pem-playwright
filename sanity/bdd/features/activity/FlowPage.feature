@@ -1,3 +1,4 @@
+#flowPage.feature
 Feature: Test FlowComponent when "New" Button is Clicked from List Page
 
   Scenario: Should navigate to FlowComponent when clicking the "New" button
@@ -55,16 +56,18 @@ Feature: Test FlowComponent when "New" Button is Clicked from List Page
     When I delete the Partner Node
     Then the edge should be removed
 
-  Scenario: Should zoom in using the zoom-in shortcut (Control+Equal)
+  Scenario: Should zoom in using the zoom-in
     When I click the "New" button
     Then I should be redirected to the FlowComponent page
     Given I am on the FlowComponent page
-    When I zoom in using the zoom-in shortcut
+    When I drag and drop the Sponsor Node on the canvas
+    When I zoom in using the zoom-in
     Then the viewport should be zoomed in
 
-  Scenario: Should zoom out using the zoom-out shortcut (Control+Minus)
+  Scenario: Should zoom out using the zoom-out
     When I click the "New" button
     Then I should be redirected to the FlowComponent page
     Given I am on the FlowComponent page
-    When I zoom out using the zoom-out shortcut
+    When I drag and drop the Sponsor Node on the canvas
+    When I zoom out using the zoom-out
     Then the viewport should be zoomed out
