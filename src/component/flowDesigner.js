@@ -12,11 +12,7 @@ import { v4 as uuidv4 } from "uuid"
 import TaskTray from "./taskTray"
 import Header from "./header"
 
-const initialEdges = []
-
-const FlowDesigner = ({ onNodeClick }) => {
-  const [nodes, setNodes] = useState([])
-  const [edges, setEdges] = useState(initialEdges)
+const FlowDesigner = ({ onNodeClick, nodes, edges, setNodes, setEdges }) => {
   const [contextMenu, setContextMenu] = useState(null)
   const reactFlowWrapper = useRef(null)
   const resizeObserverRef = useRef(null)
