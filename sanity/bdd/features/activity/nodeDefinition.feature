@@ -1,4 +1,4 @@
-# # #nodeDefinition.feature
+# # # #nodeDefinition.feature
 Feature: Test Node Definition Form when Node is Clicked from FlowComponent
 
   Scenario: Should open Definition form on node click
@@ -14,5 +14,6 @@ Feature: Test Node Definition Form when Node is Clicked from FlowComponent
     And I should see the canvas
     When I drag and drop the Partner Node on the canvas
     Then the Partner Node should be visible on the canvas
-    When I drag and drop the Sponsor Node on the canvas
-    And I should see the Sponsor Node in the sidebar
+    When I click on first Node
+    Then I should see the node should be selected
+    And I should see the Definition Form

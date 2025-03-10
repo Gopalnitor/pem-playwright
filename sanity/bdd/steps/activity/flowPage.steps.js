@@ -122,3 +122,35 @@ Then("the viewport should be zoomed out", async function () {
     await zoomedOutContainer.evaluate((node) => node.style.transform)
   ).toContain("scale")
 })
+
+When("I click on first Node", { timeout: 100 * 1000 }, async function () {
+  // Variable
+  const nodes = flowPage.canvas.locator(".react-flow__node")
+
+  // Actions
+  const locator = nodes.first()
+  await locator.click()
+})
+
+Then(
+  "I should see the node should be selected",
+  { timeout: 100 * 1000 },
+  async function () {
+    // Variable
+    const nodes = flowPage.canvas.locator(".react-flow__node")
+
+    // Actions
+    const locator = nodes.first()
+
+    // -------------------------------------------  Assertion ------------------------------------------------------
+    await expect(locator).toHaveClass(/selected/)
+  }
+)
+
+Then(
+  "I should see the Definition Form",
+  { timeout: 100 * 1000 },
+  async function () {
+    await flowPage.definitionFormFill()
+  }
+)

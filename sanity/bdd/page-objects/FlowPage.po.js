@@ -108,6 +108,31 @@ class FlowPage {
 
     await this.page.waitForTimeout(500)
   }
+
+  async definitionFormFill() {
+    // Variable
+    const crossDefinitionBtn = this.page.locator("#crossDefinitionBtn")
+    const definitionTxt = this.page.locator("#definitionTxt")
+    const name = this.page.locator("#name")
+    const url = this.page.locator("#url")
+    const description = this.page.locator("#description")
+    const role = this.page.getByLabel("Role")
+    const email = this.page.locator("#email")
+    const password = this.page.locator("#password")
+    const svg = this.page.locator("#svg")
+    const submitBtn = this.page.locator("#submitBtn")
+
+    // Fill the Data
+    await name.fill("Partner")
+    await url.fill("https://precisely.com")
+    await description.fill("Lorem Lipsum")
+    await role.selectOption("admin")
+    await email.fill("sponser@gmail.com")
+    await password.fill("Sponsor@123")
+    await svg.check()
+    // await termsAndCondition.click()
+    await submitBtn.click()
+  }
 }
 
 module.exports = FlowPage
