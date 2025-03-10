@@ -1,5 +1,5 @@
 const { Given, When, Then } = require('@cucumber/cucumber');
-const DataTablePage = require('../../page-objects/DataTablePage.po');
+const DataTablePage = require('../../page-objects/dataTablePage.po');
 
 let dataTablePage;
 
