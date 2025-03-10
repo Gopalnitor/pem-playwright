@@ -9,6 +9,7 @@ class LoginPage {
     this.signInBtn = "#signInBtn"
     this.emailError = "#email-error-msg"
     this.passwordError = "#password-error-msg"
+    this.logoutBtn = "#logoutBtn"
   }
 
   async navigateLogin() {
@@ -32,6 +33,32 @@ class LoginPage {
     await this.page.waitForTimeout(500)
   }
 
+  async verifyEmailErrorMessage(emailErrorMessage) {
+    const emailErrorLocator = this.page.locator(this.emailError)
+    await emailErrorLocator.waitFor()
+    const emailErrorContent = await emailErrorLocator.textContent()
+    await this.page.waitForTimeout(1000)
+    if (emailErrorContent.trim() !== emailErrorMessage) {
+      throw new Error(
+        `Expected heading to be "${emailErrorMessage}" but found "${emailErrorContent}"`
+      )
+    }
+    await this.page.waitForTimeout(500)
+  }
+
+  async verifyPasswordErrorMessage(passwordErrorMessage) {
+    const passwordErrorLocator = this.page.locator(this.passwordError)
+    await passwordErrorLocator.waitFor()
+    const passwordErrorContent = await passwordErrorLocator.textContent()
+    await this.page.waitForTimeout(1000)
+    if (passwordErrorContent.trim() !== passwordErrorMessage) {
+      throw new Error(
+        `Expected heading to be "${passwordErrorMessage}" but found "${passwordErrorContent}"`
+      )
+    }
+    await this.page.waitForTimeout(500)
+  }
+
   async enterValidCredential() {
     const emailLocator = this.page.locator(this.userEmail)
     const passwordLocator = this.page.locator(this.password)
@@ -44,6 +71,14 @@ class LoginPage {
     const signInBtnLocator = this.page.locator(this.signInBtn)
     await signInBtnLocator.waitFor()
     await signInBtnLocator.click()
+    await this.page.waitForTimeout(1000)
+  }
+
+  async logout() {
+    const logoutBtnLocator = this.page.locator(this.logoutBtn)
+    await logoutBtnLocator.waitFor()
+    await logoutBtnLocator.click()
+    await this.page.waitForTimeout(1000)
   }
 }
 

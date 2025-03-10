@@ -21,6 +21,22 @@ Then(
   }
 )
 
+Then(
+  "I should see an email error message {string}",
+  { timeout: 100 * 1000 },
+  async function (emailErrorMessage) {
+    await loginPage.verifyEmailErrorMessage(emailErrorMessage)
+  }
+)
+
+Then(
+  "I should see a password error message {string}",
+  { timeout: 100 * 1000 },
+  async function (passwordErrorMessage) {
+    await loginPage.verifyPasswordErrorMessage(passwordErrorMessage)
+  }
+)
+
 When(
   "I enter valid email and password",
   { timeout: 100 * 1000 },
@@ -35,4 +51,8 @@ When("I click on the login button", async function () {
 
 Then("I should be redirected to the Activity List page", async function () {
   await loginPage.navigateDashboard()
+})
+
+When("I click on the logout button", async function () {
+  await loginPage.logout()
 })
