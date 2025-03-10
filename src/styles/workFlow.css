@@ -1,3 +1,7 @@
+.main-container {
+  display: flex;
+  height: calc(100vh - 4rem);
+}
 
 .drag-container {
   position: fixed;
@@ -39,7 +43,6 @@
   margin-bottom: 1rem;
 }
 
-
 /* Context menu styles */
 .context-menu {
   position: absolute;
@@ -63,7 +66,7 @@
 
 .context-menu li:hover {
   background-color: #f0f0f0;
-} 
+}
 
 .draggable svg {
   width: 25px;

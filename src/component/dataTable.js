@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useMemo } from "react"
+import { useNavigate } from "react-router-dom"
 import {
   DataTable,
   Table,
@@ -14,87 +14,86 @@ import {
   OverflowMenuItem,
   Modal,
   ModalBody,
-} from "@carbon/react";
+} from "@carbon/react"
 
-import "@carbon/styles/css/styles.min.css";
-import { data } from "../../constants/activity-data";
-import "./DataTable.css";
-import Header from "../Header/Header";
+import "@carbon/styles/css/styles.min.css"
+import { data } from "../constants/constants"
+import "../styles/dataTable.css"
+import Header from "./header"
 
 const headers = [
   { key: "id", header: "ID" },
   { key: "name", header: "Name" },
   { key: "status", header: "Status" },
-];
+]
 
 const DataTablePage = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [statusFilter, setStatusFilter] = useState("");
+  const [currentPage, setCurrentPage] = useState(1)
+  const [rowsPerPage, setRowsPerPage] = useState(10)
+  const [searchQuery, setSearchQuery] = useState("")
+  const [statusFilter, setStatusFilter] = useState("")
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedRowId, setSelectedRowId] = useState(null);
-  const [markedRows, setMarkedRows] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectedRowId, setSelectedRowId] = useState(null)
+  const [markedRows, setMarkedRows] = useState([])
 
   const handleFlowButtonClick = () => {
-    navigate("/flow");
-  };
+    navigate("/flow")
+  }
 
   const handleSearch = (event) => {
-    const query = event.target.value;
-    setSearchQuery(query);
-    setCurrentPage(1);
-  };
+    const query = event.target.value
+    setSearchQuery(query)
+    setCurrentPage(1)
+  }
 
   const handleStatusFilterChange = (event) => {
-    setStatusFilter(event.target.value);
-    setCurrentPage(1);
-  };
+    setStatusFilter(event.target.value)
+    setCurrentPage(1)
+  }
 
   const filteredData = useMemo(() => {
     let filtered = data.filter((item) =>
       item.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    )
 
     if (statusFilter) {
-      filtered = filtered.filter((item) => item.status === statusFilter);
+      filtered = filtered.filter((item) => item.status === statusFilter)
     }
 
-    const startIndex = (currentPage - 1) * rowsPerPage;
-    return filtered.slice(startIndex, startIndex + rowsPerPage);
-  }, [searchQuery, statusFilter, currentPage, rowsPerPage]);
+    const startIndex = (currentPage - 1) * rowsPerPage
+    return filtered.slice(startIndex, startIndex + rowsPerPage)
+  }, [searchQuery, statusFilter, currentPage, rowsPerPage])
 
   const totalItems = useMemo(() => {
     let filtered = data.filter((item) =>
       item.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    )
 
     if (statusFilter) {
-      filtered = filtered.filter((item) => item.status === statusFilter);
+      filtered = filtered.filter((item) => item.status === statusFilter)
     }
 
-    return filtered.length;
-  }, [searchQuery, statusFilter]);
+    return filtered.length
+  }, [searchQuery, statusFilter])
 
-  const status = Array.from(new Set(data.map((item) => item.status)));
+  const status = Array.from(new Set(data.map((item) => item.status)))
 
   const handleMarkAsFinal = (id) => {
-    setSelectedRowId(id);
-    setIsModalOpen(true);
-
-  };
+    setSelectedRowId(id)
+    setIsModalOpen(true)
+  }
 
   const handleConfirmFinal = () => {
-    setMarkedRows((prevRows) => [...prevRows, selectedRowId]);
-    setIsModalOpen(false);
-  };
+    setMarkedRows((prevRows) => [...prevRows, selectedRowId])
+    setIsModalOpen(false)
+  }
 
   const handleCancelFinal = () => {
-    setIsModalOpen(false);
-  };
+    setIsModalOpen(false)
+  }
 
   return (
     <>
@@ -211,8 +210,8 @@ const DataTablePage = () => {
             size="md"
             totalItems={totalItems}
             onChange={({ page, pageSize }) => {
-              setCurrentPage(page);
-              setRowsPerPage(pageSize);
+              setCurrentPage(page)
+              setRowsPerPage(pageSize)
             }}
           />
         )}
@@ -229,7 +228,7 @@ const DataTablePage = () => {
         </Modal>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default DataTablePage;
+export default DataTablePage

@@ -6,6 +6,8 @@
     "@carbon/icons-react": "^11.56.0",
     "@carbon/react": "^1.77.0",
     "@carbon/styles": "^1.76.0",
+    "@carbon/themes": "^11.47.0",
+    "@carbon/type": "^11.36.0",
     "@cucumber/cucumber": "^11.2.0",
     "@playwright/test": "^1.50.1",
     "@testing-library/dom": "^10.4.0",
@@ -19,6 +21,7 @@
     "react-router-dom": "^6.30.0",
     "react-scripts": "5.0.1",
     "reactflow": "^11.11.4",
+    "sass": "^1.85.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

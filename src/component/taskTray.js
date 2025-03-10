@@ -1,6 +1,6 @@
-import React from "react";
-import { Partnership, User } from "@carbon/icons-react";
-import "./WorkFlow.css";
+import React from "react"
+import { Partnership, User } from "@carbon/icons-react"
+import "../styles/workFlow.css"
 
 const TaskTray = () => {
   return (
@@ -11,7 +11,7 @@ const TaskTray = () => {
           data-type="partner"
           draggable
           onDragStart={(event) => {
-            event.dataTransfer.setData("application/reactflow", "partner");
+            event.dataTransfer.setData("application/reactflow", "partner")
           }}
           title="Partner"
         >
@@ -25,7 +25,7 @@ const TaskTray = () => {
           data-type="sponsor"
           draggable
           onDragStart={(event) => {
-            event.dataTransfer.setData("application/reactflow", "sponsor");
+            event.dataTransfer.setData("application/reactflow", "sponsor")
           }}
           title="Sponsor"
         >
@@ -34,7 +34,7 @@ const TaskTray = () => {
         <span className="name-block">Sponsor</span>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default TaskTray;
+export default TaskTray
