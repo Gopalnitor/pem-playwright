@@ -1,7 +1,5 @@
 # Feature: Login
 
-#   Scenario: Login with valid credentials
-#     Given I am on the login page
-#     When I enter valid credentials
-#     And I click the "Login" button
-#     Then I should be redirected to the Activity List page
+#   Scenario: User navigates to the Login Page
+#     Given I am on the Login Page
+#     Then I should see the "Login" Text

@@ -27,7 +27,9 @@ const LoginForm = (props) => {
       </div>
       <div className="login-container">
         <Form id="login-form" aria-label="login form" className="login-form">
-          <span className="login-text form-input">Login</span>
+          <span id="login-text" className="login-text form-input">
+            Login
+          </span>
           <TextInput
             id="email"
             className="form-input"
