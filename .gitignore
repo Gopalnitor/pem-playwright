@@ -10,6 +10,7 @@
 
 /sanity/reports/
 /sanity/videos/
+/sanity/screenshots
 
 # production
 /build
