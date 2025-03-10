@@ -8,6 +8,9 @@
 # testing
 /coverage
 
+/sanity/reports/
+/sanity/videos/
+
 # production
 /build
 

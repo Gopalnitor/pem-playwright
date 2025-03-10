@@ -11,6 +11,14 @@ class LoginPage {
     this.passwordError = "#password-error-msg"
   }
 
+  async navigateLogin() {
+    await this.page.goto("http://localhost:3000")
+  }
+
+  async navigateDashboard() {
+    await this.page.goto("http://localhost:3000/dashboard")
+  }
+
   async verifyLoginText(expectedText) {
     const loginTextLocator = this.page.locator(this.loginText)
     await loginTextLocator.waitFor()
@@ -22,6 +30,20 @@ class LoginPage {
       )
     }
     await this.page.waitForTimeout(500)
+  }
+
+  async enterValidCredential() {
+    const emailLocator = this.page.locator(this.userEmail)
+    const passwordLocator = this.page.locator(this.password)
+    await emailLocator.fill("sponser@gmail.com")
+    await passwordLocator.fill("Sponsor@123")
+    await this.page.waitForTimeout(1000)
+  }
+
+  async loginSubmit() {
+    const signInBtnLocator = this.page.locator(this.signInBtn)
+    await signInBtnLocator.waitFor()
+    await signInBtnLocator.click()
   }
 }
 
